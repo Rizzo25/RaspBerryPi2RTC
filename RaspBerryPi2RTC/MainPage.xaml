@@ -8,6 +8,13 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox x:Name="TxtHour" HorizontalAlignment="Left" Margin="33,111,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
+        <TextBox x:Name="TxtYear" HorizontalAlignment="Left" Margin="185,38,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
+        <TextBox x:Name="TxtMinute" HorizontalAlignment="Left" Margin="109,111,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
+        <TextBox x:Name="TxtDay" HorizontalAlignment="Left" Margin="33,38,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
+        <TextBox x:Name="TxtMonth" HorizontalAlignment="Left" Margin="109,38,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
+        <TextBox x:Name="TxtSecond" HorizontalAlignment="Left" Margin="185,111,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
+        <Button x:Name="BtnRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="127,202,0,0" VerticalAlignment="Top" Click="BtnRefresh_Click"/>
     </Grid>
 </Page>
