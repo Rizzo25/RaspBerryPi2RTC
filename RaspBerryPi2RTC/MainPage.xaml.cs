@@ -26,7 +26,7 @@ namespace RaspBerryPi2RTC
     {
         private const string I2C_CONTROLLER_NAME = "I2C1";
         private const byte RTC_I2C_ADDRESS = 0x6f;
-        private const byte RTC_IODIR_REGISTER_ADDRESS = 0x00;
+        private const byte RTC_IODIR_REGISTER_ADDRESS = 0x80;
         private const byte RTC_DAY_REGISTER_ADDRESS = 0x06;
         private const byte RTC_MONTH_REGISTER_ADDRESS = 0x05;
         private const byte RTC_YEAR_REGISTER_ADDRESS = 0x04;
@@ -49,7 +49,7 @@ namespace RaspBerryPi2RTC
         }
         private async void InitializeSystem()
         {
-            // byte[] i2CWriteBuffer;
+             byte[] i2CWriteBuffer;
              byte[] i2CReadBuffer;
             // byte bitMask;
             try
@@ -68,27 +68,29 @@ namespace RaspBerryPi2RTC
 
             try
             {
+                i2CWriteBuffer = new byte[] { RTC_SECOND_REGISTER_ADDRESS,RTC_IODIR_REGISTER_ADDRESS };
+                i2cPIFACERTC.Write(i2CWriteBuffer);
                 // initialize local copies of the IODIR, GPIO, and OLAT registers
                 i2CReadBuffer = new byte[1];
 
                 // read in each register value on register at a time (could do this all at once but
                 // for example clarity purposes we do it this way)
-                i2cPIFACERTC.WriteRead(new byte[] { RTC_IODIR_REGISTER_ADDRESS }, i2CReadBuffer);
+                i2cPIFACERTC.WriteRead(new byte[] { RTC_DAY_REGISTER_ADDRESS }, i2CReadBuffer);
                 RTC_LOCAL_DAY = i2CReadBuffer[0];
 
-                i2cPIFACERTC.WriteRead(new byte[] { RTC_IODIR_REGISTER_ADDRESS }, i2CReadBuffer);
+                i2cPIFACERTC.WriteRead(new byte[] { RTC_MONTH_REGISTER_ADDRESS }, i2CReadBuffer);
                 RTC_LOCAL_MONTH = i2CReadBuffer[0];
 
-                i2cPIFACERTC.WriteRead(new byte[] { RTC_IODIR_REGISTER_ADDRESS }, i2CReadBuffer);
+                i2cPIFACERTC.WriteRead(new byte[] { RTC_YEAR_REGISTER_ADDRESS }, i2CReadBuffer);
                 RTC_LOCAL_YEAR = i2CReadBuffer[0];
 
-                i2cPIFACERTC.WriteRead(new byte[] { RTC_IODIR_REGISTER_ADDRESS }, i2CReadBuffer);
+                i2cPIFACERTC.WriteRead(new byte[] { RTC_HOUR_REGISTER_ADDRESS }, i2CReadBuffer);
                 RTC_LOCAL_HOUR = i2CReadBuffer[0];
 
-                i2cPIFACERTC.WriteRead(new byte[] { RTC_IODIR_REGISTER_ADDRESS }, i2CReadBuffer);
+                i2cPIFACERTC.WriteRead(new byte[] { RTC_MINUTE_REGISTER_ADDRESS }, i2CReadBuffer);
                 RTC_LOCAL_MINUTE = i2CReadBuffer[0];
 
-                i2cPIFACERTC.WriteRead(new byte[] { RTC_IODIR_REGISTER_ADDRESS }, i2CReadBuffer);
+                i2cPIFACERTC.WriteRead(new byte[] { RTC_SECOND_REGISTER_ADDRESS }, i2CReadBuffer);
                 RTC_LOCAL_SECOND = i2CReadBuffer[0];
 
                 // configure the LED pin output to be logic high, leave the other pins as they are.
@@ -114,7 +116,14 @@ namespace RaspBerryPi2RTC
 
             try
             {
-                //TxtDay = str(RTC_LOCAL_DAY);
+                TxtDay.Text =RTC_LOCAL_DAY.ToString();
+                TxtMonth.Text = RTC_LOCAL_MONTH.ToString();
+                TxtYear.Text = RTC_LOCAL_YEAR.ToString();
+                TxtHour.Text = RTC_LOCAL_HOUR.ToString();
+                TxtMinute.Text = RTC_LOCAL_MINUTE.ToString();
+                TxtSecond.Text = RTC_LOCAL_SECOND.ToString();
+                
+
 
             }
             catch (Exception e)
